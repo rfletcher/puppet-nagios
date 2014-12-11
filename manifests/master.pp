@@ -23,7 +23,7 @@ class nagios::master inherits nagios {
       group   => root,
       mode    => '0644',
       alias   => 'npcd',
-      source  => "puppet:///modules/nagios/${::lsbdistcodename}/etc/default/npcd",
+      source  => "puppet:///modules/nagios/etc/default/npcd",
       notify  => Service['npcd'],
       require => Package['pnp4nagios'],
     }
@@ -36,7 +36,7 @@ class nagios::master inherits nagios {
     mode    => '0644',
     alias   => 'configs',
     notify  => Service['nagios3'],
-    source  => "puppet:///modules/nagios/${::lsbdistcodename}/etc/nagios3",
+    source  => "puppet:///modules/nagios/etc/nagios3",
     require => Package['nagios3'],
   }
 
@@ -56,8 +56,7 @@ class nagios::master inherits nagios {
     alias   => 'conf.d',
     notify  => Service['nagios3'],
     source  => [
-      "puppet:///modules/nagios/${::lsbdistcodename}/etc/nagios3/conf.d",
-      'puppet:///modules/nagios/common/etc/nagios3/conf.d'
+      "puppet:///modules/nagios/etc/nagios3/conf.d",
     ],
     require => Package['nagios3'],
   }

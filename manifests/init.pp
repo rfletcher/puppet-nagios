@@ -20,7 +20,7 @@ class nagios {
     group   => root,
     mode    => '0644',
     notify  => Service['nagios-nrpe-server'],
-    source  => 'puppet:///modules/nagios/common/etc/nagios/nrpe.d',
+    source  => 'puppet:///modules/nagios/etc/nagios/nrpe.d',
     require => Package['nagios-nrpe-server'],
   }
 
@@ -31,7 +31,7 @@ class nagios {
     owner   => root,
     group   => staff,
     mode    => '0755',
-    source  => 'puppet:///modules/nagios/common/usr/local/lib/nagios',
+    source  => 'puppet:///modules/nagios/usr/local/lib/nagios',
   }
 
   package { [
