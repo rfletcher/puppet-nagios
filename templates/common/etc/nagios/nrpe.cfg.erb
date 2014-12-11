@@ -80,10 +80,10 @@ nrpe_group=nagios
 #
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-<% if t_whitelist.length > 1 -%>
-allowed_hosts=<%= t_whitelist.join(",") %>
+<% if @t_whitelist.length > 1 -%>
+allowed_hosts=<%= @t_whitelist.join(",") %>
 <% else -%>
-allowed_hosts=<%= t_whitelist %>
+allowed_hosts=<%= @t_whitelist %>
 <% end -%>
  
 
