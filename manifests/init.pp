@@ -39,7 +39,8 @@ class nagios {
     'libnagios-plugin-perl',
     'nagios-nrpe-server',
     'nagios-plugins-basic',
-    'nagios-plugins-standard' ]:
+    'nagios-plugins-standard'
+  ]:
     ensure => present,
   }
 
