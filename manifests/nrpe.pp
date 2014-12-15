@@ -41,4 +41,7 @@ class nagios::nrpe(
     enable  => true,
     require => Package['nagios-nrpe-server'],
   }
+
+  # realize virtual NRPE resources
+  ::Nagios::Nrpe::Command <| |>
 }
