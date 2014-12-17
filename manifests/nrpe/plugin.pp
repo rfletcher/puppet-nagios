@@ -1,9 +1,9 @@
-define nagios::plugin(
+define nagios::nrpe::plugin(
   $ensure  = present,
-  $source  = undef,
   $content = undef,
+  $source  = undef,
 ) {
-  include ::nagios
+  include ::nagios::nrpe
 
   file { "/usr/lib/nagios/plugins/${title}":
     ensure  => $ensure,
@@ -12,6 +12,6 @@ define nagios::plugin(
     group   => 'root',
     mode    => '0755',
     owner   => 'root',
-    notify  => Service['nagios3'],
+    notify  => Service['nagios-nrpe-server'],
   }
 }
