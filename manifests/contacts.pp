@@ -6,6 +6,12 @@ class nagios::contacts {
     notify => Service['nagios3'],
   }
 
+  Nagios_contactgroup {
+    mode   => '0644',
+    target => '/etc/nagios3/conf.d/contactgroups.cfg',
+    notify => Service['nagios3'],
+  }
+
   nagios_contact { 'generic-contact':
     alias                           => 'generic-contact',
 
@@ -21,10 +27,5 @@ class nagios::contacts {
 
     register                        => 0,
     use                             => undef,
-  }
-
-  nagios_contact { 'dev':
-    alias  => 'All Developers',
-    email  => 'dev@viglink.com',
   }
 }

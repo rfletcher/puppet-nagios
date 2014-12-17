@@ -3,9 +3,12 @@
 class nagios(
   $users = undef,
 ) {
+  include ::nagios::commands
   include ::nagios::contacts
   include ::nagios::hosts
+  include ::nagios::hostgroups
   include ::nagios::timeperiods
+  include ::nagios::services
 
   ## install
 
