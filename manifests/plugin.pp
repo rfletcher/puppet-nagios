@@ -12,6 +12,6 @@ define nagios::plugin(
     group   => 'root',
     mode    => '0755',
     owner   => 'root',
-    require => Class['::nagios'],
+    notify  => Service['nagios3'],
   }
 }

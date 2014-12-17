@@ -5,6 +5,7 @@ class nagios::nrpe(
 
   package { 'nagios-nrpe-server':
     ensure => present,
+    before => Service['nagios-nrpe-server'],
   }
 
   ## configure
@@ -15,14 +16,11 @@ class nagios::nrpe(
     require => Package['nagios-nrpe-server'],
   }
 
-  augeas { 'nrpe.cfg: rm default commands':
-    changes => 'rm command',
-    onlyif  => 'match command size > 0',
-  }
-
-  augeas { 'nrpe.cfg: set dont_blame_nrpe':
-    changes => 'set dont_blame_nrpe 1',
-    onlyif  => 'match dont_blame_nrpe != 1',
+  augeas { 'nrpe.cfg: update defaults':
+    changes => [
+      'rm command',
+      'set dont_blame_nrpe 1'
+    ],
   }
 
   if( is_array( $allowed_hosts ) ) {
@@ -30,16 +28,15 @@ class nagios::nrpe(
 
     augeas { 'nrpe.cfg: set allowed_hosts':
       changes => "set allowed_hosts '${real_allowed_hosts}'",
-      onlyif  => "match allowed_hosts != '${real_allowed_hosts}'",
     }
   }
 
   ## run
 
   service { 'nagios-nrpe-server':
-    ensure  => running,
-    enable  => true,
-    require => Package['nagios-nrpe-server'],
+    ensure     => running,
+    enable     => true,
+    hasrestart => true,
   }
 
   # realize virtual NRPE resources

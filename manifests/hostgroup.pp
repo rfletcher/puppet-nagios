@@ -1,4 +1,4 @@
-define nagios::host::hostgroups() {
+define nagios::hostgroup() {
   $alias = inline_template('<%= name.capitalize -%>')
 
   nagios_hostgroup { $name:

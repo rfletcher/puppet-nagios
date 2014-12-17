@@ -1,4 +1,6 @@
-define nagios::contact::contactgroups($alias = false) {
+define nagios::contactgroups(
+  $alias = false,
+) {
   nagios_contactgroup { $name:
     ensure => present,
     alias  => $alias,
