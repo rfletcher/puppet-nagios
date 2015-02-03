@@ -12,6 +12,7 @@ define nagios::nrpe::plugin(
     group   => 'root',
     mode    => '0755',
     owner   => 'root',
+    require => Package['nagios-nrpe-server'],
     notify  => Service['nagios-nrpe-server'],
   }
 }
