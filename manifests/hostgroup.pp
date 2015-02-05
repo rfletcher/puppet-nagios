@@ -1,11 +1,9 @@
-define nagios::contact(
+define nagios::hostgroup(
   $ensure = present,
   $alias  = undef,
-  $email  = undef,
 ) {
-  nagios_contact { $name:
+  nagios_hostgroup { $name:
     ensure => $ensure,
     alias  => $alias,
-    email  => $email,
   }
 }

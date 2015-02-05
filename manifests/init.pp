@@ -2,10 +2,12 @@ class nagios(
   $users = undef,
 ) {
   include ::nagios::server::commands
-  include ::nagios::server::contacts
   include ::nagios::server::contactgroups
+  include ::nagios::server::contacts
+  include ::nagios::server::hostgroups
   include ::nagios::server::hosts
   include ::nagios::server::timeperiods
+  include ::nagios::server::servicegroups
   include ::nagios::server::services
 
   ## install
