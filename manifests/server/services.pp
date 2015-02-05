@@ -41,11 +41,11 @@ class nagios::server::services {
     use                 => 'generic-service',
   }
 
-  # collect exported services
   Nagios_service <<| |>> {
-    mode   => '0644',
-    target => '/etc/nagios3/conf.d/services.cfg',
-    use    => 'generic-service',
-    notify => Service['nagios3'],
+    mode    => '0644',
+    target  => '/etc/nagios3/conf.d/services.cfg',
+    use     => 'generic-service',
+    notify  => Service['nagios3'],
+    require => Package['nagios3'],
   }
 }

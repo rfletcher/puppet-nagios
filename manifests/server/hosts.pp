@@ -25,11 +25,11 @@ class nagios::server::hosts {
     use                          => undef,
   }
 
-  # collect exported hosts
   Nagios_host <<| |>> {
-    mode   => '0644',
-    target => '/etc/nagios3/conf.d/hosts.cfg',
-    use    => 'generic-host',
-    notify => Service['nagios3'],
+    mode    => '0644',
+    target  => '/etc/nagios3/conf.d/hosts.cfg',
+    use     => 'generic-host',
+    notify  => Service['nagios3'],
+    require => Package['nagios3'],
   }
 }

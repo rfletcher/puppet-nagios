@@ -33,8 +33,8 @@ class nagios::users(
   }
 
   Htpasswd {
-    target => '/etc/nagios3/htpasswd.users',
-    notify => Service['nagios3'],
+    target  => '/etc/nagios3/htpasswd.users',
+    notify  => Service['nagios3'],
   }
 
   create_resources( 'htpasswd', hash_rename_keys( $users, {

@@ -52,7 +52,10 @@ class nagios(
     match => '^use_large_installation_tweaks=',
   }
 
-  class { '::nagios::users': users => $users, }
+  class { '::nagios::users':
+    users   => $users,
+    require => Package['nagios3'],
+  }
 
   ## run
 

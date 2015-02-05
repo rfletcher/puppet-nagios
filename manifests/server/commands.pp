@@ -7,10 +7,10 @@ class nagios::server::commands {
     command_line => '/usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -t $ARG1$ -c $ARG2$ -a $ARG3$'
   }
 
-  # collect exported hosts
   Nagios_command <<| |>> {
-    mode   => '0644',
-    target => '/etc/nagios3/conf.d/commands.cfg',
-    notify => Service['nagios3'],
+    mode    => '0644',
+    target  => '/etc/nagios3/conf.d/commands.cfg',
+    notify  => Service['nagios3'],
+    require => Package['nagios3'],
   }
 }

@@ -42,8 +42,9 @@ class nagios::server::timeperiods {
   }
 
   Nagios_timeperiod <<| |>> {
-    mode   => '0644',
-    target => '/etc/nagios3/conf.d/timeperiods.cfg',
-    notify => Service['nagios3'],
+    mode    => '0644',
+    target  => '/etc/nagios3/conf.d/timeperiods.cfg',
+    notify  => Service['nagios3'],
+    require => Package['nagios3'],
   }
 }
