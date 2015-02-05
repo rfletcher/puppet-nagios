@@ -16,23 +16,23 @@ class nagios::server::timeperiods {
 
   # Here is a slightly friendlier period during work hours
   @@nagios_timeperiod{ 'workhours':
-    alias     => 'Standard Work Hours',
-    monday    => '09:00-17:00',
-    tuesday   => '09:00-17:00',
-    wednesday => '09:00-17:00',
-    thursday  => '09:00-17:00',
-    friday    => '09:00-17:00',
+    alias     => 'Typical Engineering Work Hours',
+    monday    => '10:00-18:00',
+    tuesday   => '10:00-18:00',
+    wednesday => '10:00-18:00',
+    thursday  => '10:00-18:00',
+    friday    => '10:00-18:00',
   }
 
   # The complement of workhours
   @@nagios_timeperiod{ 'nonworkhours':
      alias     => 'Non-Work Hours',
      sunday    => '00:00-24:00',
-     monday    => '00:00-09:00,17:00-24:00',
-     tuesday   => '00:00-09:00,17:00-24:00',
-     wednesday => '00:00-09:00,17:00-24:00',
-     thursday  => '00:00-09:00,17:00-24:00',
-     friday    => '00:00-09:00,17:00-24:00',
+     monday    => '00:00-10:00,18:00-24:00',
+     tuesday   => '00:00-10:00,18:00-24:00',
+     wednesday => '00:00-10:00,18:00-24:00',
+     thursday  => '00:00-10:00,18:00-24:00',
+     friday    => '00:00-10:00,18:00-24:00',
      saturday  => '00:00-24:00',
   }
 
