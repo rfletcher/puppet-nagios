@@ -77,6 +77,8 @@ class nagios(
   #   notify      => Service['nagios3'],
   # }
 
+  # remove some default configuration
+
   file { [
     '/etc/nagios3/conf.d/contacts_nagios2.cfg',
     '/etc/nagios3/conf.d/extinfo_nagios2.cfg',
@@ -90,24 +92,4 @@ class nagios(
     ensure => absent,
     notify => Service['nagios3'],
   }
-
-  # purge unmanaged nagios resources
-  resources { 'nagios_command':      purge => true, }
-  resources { 'nagios_contact':      purge => true, }
-  resources { 'nagios_contactgroup': purge => true, }
-  resources { 'nagios_host':         purge => true, }
-  resources { 'nagios_hostgroup':    purge => true, }
-  resources { 'nagios_hostextinfo':  purge => true, }
-  resources { 'nagios_service':      purge => true, }
-  resources { 'nagios_servicegroup': purge => true, }
-
-  # # realize virtual nagios resources
-  # Nagios_command <||>      { require => Package['nagios3'] }
-  # Nagios_contact <||>      { require => Package['nagios3'] }
-  # Nagios_contactgroup <||> { require => Package['nagios3'] }
-  # Nagios_host <||>         { require => Package['nagios3'] }
-  # Nagios_hostgroup <||>    { require => Package['nagios3'] }
-  # Nagios_hostextinfo <||>  { require => Package['nagios3'] }
-  # Nagios_service <||>      { require => Package['nagios3'] }
-  # Nagios_servicegroup <||> { require => Package['nagios3'] }
 }
