@@ -1,5 +1,5 @@
 define nagios::nrpe::command(
-  $ensure  = present,
+  $ensure = present,
   $command,
 ) {
   include ::nagios::nrpe

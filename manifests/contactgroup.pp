@@ -1,9 +1,9 @@
-define nagios::contactgroups(
-  $alias = false,
+define nagios::contactgroup(
+  $ensure  = present,
+  $members = undef,
 ) {
-  nagios_contactgroup { $name:
-    ensure => present,
-    alias  => $alias,
-    target => '/etc/nagios3/conf.d/contactgroups.cfg',
+  @@nagios_contactgroup { $name:
+    ensure  => $ensure,
+    members => is_array( $members ) ? { true => join( $members, ',' ), false => $members },
   }
 }
