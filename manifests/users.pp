@@ -42,6 +42,6 @@ class nagios::users(
   }, 1 ) )
 
   file { '/etc/nagios3/htpasswd.users':
-    mode    => '0644',
+    mode => '0644',
   }
 }
