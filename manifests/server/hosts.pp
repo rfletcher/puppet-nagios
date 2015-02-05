@@ -1,12 +1,9 @@
-class nagios::hosts {
-  Nagios_host {
-    mode   => '0644',
-    target => '/etc/nagios3/conf.d/hosts.cfg',
-    use    => 'generic-host',
-    notify => Service['nagios3'],
+class nagios::server::hosts {
+  resources { 'nagios_host':
+    purge => true,
   }
 
-  nagios_host { 'generic-host':
+  @@nagios_host { 'generic-host':
     name                         => 'generic-host',
     check_command                => 'check-host-alive',
     contact_groups               => 'dev',

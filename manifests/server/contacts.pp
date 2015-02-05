@@ -1,18 +1,9 @@
-class nagios::contacts {
-  Nagios_contact {
-    mode   => '0644',
-    target => '/etc/nagios3/conf.d/contacts.cfg',
-    use    => 'generic-contact',
-    notify => Service['nagios3'],
+class nagios::server::contacts {
+  resources { 'nagios_contact':
+    purge => true,
   }
 
-  Nagios_contactgroup {
-    mode   => '0644',
-    target => '/etc/nagios3/conf.d/contactgroups.cfg',
-    notify => Service['nagios3'],
-  }
-
-  nagios_contact { 'generic-contact':
+  @@nagios_contact { 'generic-contact':
     alias                           => 'generic-contact',
 
     email                           => 'root@localhost',
@@ -27,5 +18,13 @@ class nagios::contacts {
 
     register                        => 0,
     use                             => undef,
+  }
+
+  # collect exported contacts
+  Nagios_contact <<| |>> {
+    mode   => '0644',
+    target => '/etc/nagios3/conf.d/contacts.cfg',
+    use    => 'generic-contact',
+    notify => Service['nagios3'],
   }
 }
