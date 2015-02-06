@@ -5,4 +5,5 @@ summary      'Nagios Core and NRPE'
 description  'A puppet module for Nagios Core and NRPE'
 project_page 'https://github.com/rfletcher/puppet-nagios'
 
-dependency 'leinaddm/htpasswd', '>= 0.0.3'
+dependency 'dalen/puppetdbquery', '>= 1.5.3'
+dependency 'leinaddm/htpasswd',   '>= 0.0.3'
