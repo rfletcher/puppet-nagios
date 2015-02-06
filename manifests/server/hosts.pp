@@ -5,6 +5,11 @@ class nagios::server::hosts {
     purge => true,
   }
 
+  file { $nagios::params::host_conf_dir:
+    ensure  => directory,
+    require => Package['nagios3'],
+  }
+
   @@nagios_host { 'generic-host':
     name                         => 'generic-host',
     check_command                => 'check-host-alive',
@@ -25,13 +30,17 @@ class nagios::server::hosts {
 
     register                     => 0,
     use                          => undef,
+
+    target => "${nagios::params::conf_dir}/generic-host.cfg",
   }
 
   Nagios_host <<| |>> {
     mode    => '0644',
-    target  => "${nagios::params::conf_dir}/hosts.cfg",
     use     => 'generic-host',
     notify  => Service['nagios3'],
-    require => Package['nagios3'],
+    require => [
+      Package['nagios3'],
+      File[$nagios::params::host_conf_dir],
+    ],
   }
 }

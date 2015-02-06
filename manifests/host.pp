@@ -3,6 +3,8 @@ define nagios::host(
   $address = undef,
   $groups  = undef,
 ) {
+  include ::nagios::params
+
   $real_groups = is_array( $groups ) ? {
     true  => join( $groups, ',' ),
     false => $groups,
@@ -12,5 +14,6 @@ define nagios::host(
     ensure     => $ensure,
     address    => $address,
     hostgroups => $real_groups,
+    target     => "${nagios::params::host_conf_dir}/${::clientcert}.cfg",
   }
 }
