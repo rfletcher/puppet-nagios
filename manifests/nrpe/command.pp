@@ -7,6 +7,7 @@ define nagios::nrpe::command(
   file { "/etc/nagios/nrpe.d/${name}.cfg":
     content => template( 'nagios/nrpe/command.cfg.erb' ),
     mode    => '0644',
-    require => Class['::nagios::nrpe'],
+    require => Package['nagios-nrpe-server'],
+    notify  => Service['nagios-nrpe-server'],
   }
 }
