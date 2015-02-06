@@ -3,7 +3,7 @@ class nagios::server::hosts {
     purge => true,
   }
 
-  nagios_host { 'generic-host':
+  @@nagios_host { 'generic-host':
     name                         => 'generic-host',
     check_command                => 'check-host-alive',
     contact_groups               => 'dev',

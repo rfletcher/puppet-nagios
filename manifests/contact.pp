@@ -3,7 +3,7 @@ define nagios::contact(
   $alias  = undef,
   $email  = undef,
 ) {
-  nagios_contact { $name:
+  @@nagios_contact { $name:
     ensure => $ensure,
     alias  => $alias,
     email  => $email,
