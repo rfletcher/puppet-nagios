@@ -49,4 +49,20 @@ class nagios::server::hosts {
       File[$nagios::params::host_conf_dir],
     ],
   }
+
+  # clean up deactivated hosts
+  # (this is just a roundabout way of getting the list of deactivated nodes, necessary because the puppetdb API doesn't support that.)
+  $active_nodes        = query_nodes( 'Nagios::Host' )
+  $configured_nodes    = split( $::configured_nagios_hosts, ',' )
+  $deactivated_nodes   = difference( $configured_nodes, $active_nodes )
+  $deactivated_configs = prefix( suffix( $deactivated_nodes, ".cfg" ), "${nagios::params::host_conf_dir}/" )
+
+  file { $deactivated_configs:
+    ensure  => absent,
+    notify  => Service['nagios3'],
+    require => [
+      Package['nagios3'],
+      File[$nagios::params::host_conf_dir],
+    ],
+  }
 }
