@@ -1,4 +1,6 @@
 class nagios::server::commands {
+  include ::nagios::params
+
   resources { 'nagios_command':
     purge => true,
   }
@@ -9,7 +11,7 @@ class nagios::server::commands {
 
   Nagios_command <<| |>> {
     mode    => '0644',
-    target  => '/etc/nagios3/conf.d/commands.cfg',
+    target  => "${nagios::params::conf_dir}/commands.cfg",
     notify  => Service['nagios3'],
     require => Package['nagios3'],
   }

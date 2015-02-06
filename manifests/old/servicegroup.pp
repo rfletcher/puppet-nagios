@@ -1,9 +1,11 @@
 define nagios::servicegroup() {
+  include ::nagios::params
+
   $alias = inline_template('<%= name.capitalize -%>')
 
   nagios_servicegroup { $name:
     ensure => present,
     alias  => $alias,
-    target => '/etc/nagios3/conf.d/servicegroups.cfg',
+    target => "${nagios::params::conf_dir}/servicegroups.cfg",
   }
 }

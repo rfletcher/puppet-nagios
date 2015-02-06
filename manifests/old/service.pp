@@ -2,6 +2,8 @@ define nagios::service(
   $command = false,
   $group   = $name,
 ) {
+  include ::nagios::params
+
   $real_group = $group ? {
     false   => $name,
     default => $group,
@@ -20,6 +22,6 @@ define nagios::service(
     servicegroups       => $real_group,
     service_description => $name,
     use                 => 'generic-service',
-    target              => "/etc/nagios3/conf.d/${::hostname}_services.cfg",
+    target              => "${nagios::params::conf_dir}/${::hostname}_services.cfg",
   }
 }

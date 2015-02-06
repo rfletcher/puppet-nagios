@@ -1,4 +1,6 @@
 class nagios::server::contacts {
+  include ::nagios::params
+
   resources { 'nagios_contact':
     purge => true,
   }
@@ -22,7 +24,7 @@ class nagios::server::contacts {
 
   Nagios_contact <<| |>> {
     mode    => '0644',
-    target  => '/etc/nagios3/conf.d/contacts.cfg',
+    target  => "${nagios::params::conf_dir}/contacts.cfg",
     use     => 'generic-contact',
     notify  => Service['nagios3'],
     require => Package['nagios3'],

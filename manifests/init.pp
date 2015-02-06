@@ -1,6 +1,8 @@
 class nagios(
   $users = undef,
 ) {
+  include ::nagios::params
+
   include ::nagios::server::commands
   include ::nagios::server::contactgroups
   include ::nagios::server::contacts
@@ -28,7 +30,7 @@ class nagios(
   }
 
   augeas { 'nagios.cfg: change defaults':
-    context => '/files/etc/nagios3/nagios.cfg',
+    context => "/files${nagios::params::root_dir}/nagios.cfg",
     changes => [
       'set check_external_commands 1',
       'set command_check_interval 15s',
@@ -38,7 +40,7 @@ class nagios(
   }
 
   File_line {
-    path    => '/etc/nagios3/cgi.cfg',
+    path    => "${nagios::params::root_dir}/cgi.cfg",
     notify  => Service['nagios3'],
     require => Package['nagios3'],
   }
@@ -85,14 +87,14 @@ class nagios(
   # remove some default configuration
 
   file { [
-    '/etc/nagios3/conf.d/contacts_nagios2.cfg',
-    '/etc/nagios3/conf.d/extinfo_nagios2.cfg',
-    '/etc/nagios3/conf.d/generic-host_nagios2.cfg',
-    '/etc/nagios3/conf.d/generic-service_nagios2.cfg',
-    '/etc/nagios3/conf.d/hostgroups_nagios2.cfg',
-    '/etc/nagios3/conf.d/localhost_nagios2.cfg',
-    '/etc/nagios3/conf.d/services_nagios2.cfg',
-    '/etc/nagios3/conf.d/timeperiods_nagios2.cfg'
+    "${nagios::params::conf_dir}/contacts_nagios2.cfg",
+    "${nagios::params::conf_dir}/extinfo_nagios2.cfg",
+    "${nagios::params::conf_dir}/generic-host_nagios2.cfg",
+    "${nagios::params::conf_dir}/generic-service_nagios2.cfg",
+    "${nagios::params::conf_dir}/hostgroups_nagios2.cfg",
+    "${nagios::params::conf_dir}/localhost_nagios2.cfg",
+    "${nagios::params::conf_dir}/services_nagios2.cfg",
+    "${nagios::params::conf_dir}/timeperiods_nagios2.cfg"
   ]:
     ensure => absent,
     notify => Service['nagios3'],

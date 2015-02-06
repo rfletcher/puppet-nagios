@@ -1,6 +1,8 @@
 class nagios::users(
   $users,
 ) {
+  include ::nagios::params
+
   $user_list = join( sort( keys( $users ) ), ',' )
 
   file_line { 'cgi.cfg: set authorized_for_all_host_commands':
@@ -33,7 +35,7 @@ class nagios::users(
   }
 
   Htpasswd {
-    target  => '/etc/nagios3/htpasswd.users',
+    target  => "${nagios::params::root_dir}/htpasswd.users",
     notify  => Service['nagios3'],
   }
 
@@ -41,7 +43,7 @@ class nagios::users(
     'password_hash' => 'cryptpasswd',
   }, 1 ) )
 
-  file { '/etc/nagios3/htpasswd.users':
+  file { "${nagios::params::root_dir}/htpasswd.users":
     mode => '0644',
   }
 }

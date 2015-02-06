@@ -1,4 +1,5 @@
 class nagios::hostgroups {
+  include ::nagios::params
 
   @@nagios_hostgroup { 'all':
     alias   => 'All Servers',
@@ -8,7 +9,7 @@ class nagios::hostgroups {
   # collect exported hostgroups
   Nagios_hostgroup <<| |>> {
     mode   => '0644',
-    target => '/etc/nagios3/conf.d/hostgroups.cfg',
+    target => "${nagios::params::conf_dir}/hostgroups.cfg",
     notify => Service['nagios3'],
   }
 }

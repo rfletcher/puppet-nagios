@@ -1,4 +1,6 @@
 class nagios::server::timeperiods {
+  include ::nagios::params
+
   resources { 'nagios_timeperiod':
     purge => true,
   }
@@ -43,7 +45,7 @@ class nagios::server::timeperiods {
 
   Nagios_timeperiod <<| |>> {
     mode    => '0644',
-    target  => '/etc/nagios3/conf.d/timeperiods.cfg',
+    target  => "${nagios::params::conf_dir}/timeperiods.cfg",
     notify  => Service['nagios3'],
     require => Package['nagios3'],
   }

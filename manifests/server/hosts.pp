@@ -1,4 +1,6 @@
 class nagios::server::hosts {
+  include ::nagios::params
+
   resources { 'nagios_host':
     purge => true,
   }
@@ -27,7 +29,7 @@ class nagios::server::hosts {
 
   Nagios_host <<| |>> {
     mode    => '0644',
-    target  => '/etc/nagios3/conf.d/hosts.cfg',
+    target  => "${nagios::params::conf_dir}/hosts.cfg",
     use     => 'generic-host',
     notify  => Service['nagios3'],
     require => Package['nagios3'],

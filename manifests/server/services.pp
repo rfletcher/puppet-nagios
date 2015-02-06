@@ -1,4 +1,6 @@
 class nagios::server::services {
+  include ::nagios::params
+
   resources { 'nagios_service':
     purge => true,
   }
@@ -43,7 +45,7 @@ class nagios::server::services {
 
   Nagios_service <<| |>> {
     mode    => '0644',
-    target  => '/etc/nagios3/conf.d/services.cfg',
+    target  => "${nagios::params::conf_dir}/services.cfg",
     use     => 'generic-service',
     notify  => Service['nagios3'],
     require => Package['nagios3'],
