@@ -5,10 +5,14 @@ class nagios::server::hosts {
     purge => true,
   }
 
+  # ensure the host config dir is present
+
   file { $nagios::params::host_conf_dir:
     ensure  => directory,
     require => Package['nagios3'],
   }
+
+  # add a generic host others can inherit from
 
   @@nagios_host { 'generic-host':
     name                         => 'generic-host',
@@ -33,6 +37,8 @@ class nagios::server::hosts {
 
     target => "${nagios::params::conf_dir}/generic-host.cfg",
   }
+
+  # realize other host configuration
 
   Nagios_host <<| |>> {
     mode    => '0644',
