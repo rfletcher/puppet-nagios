@@ -5,5 +5,6 @@ define nagios::hostgroup(
   @@nagios_hostgroup { $name:
     ensure => $ensure,
     alias  => $alias,
+    target => "${nagios::params::hostgroup_conf_dir}/${name}.cfg",
   }
 }
