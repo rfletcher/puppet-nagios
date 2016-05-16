@@ -1,10 +1,11 @@
 class nagios::nrpe(
+  $ensure        = 'present',
   $allowed_hosts = undef,
 ) {
   ## install
 
   package { 'nagios-nrpe-server':
-    ensure => present,
+    ensure => $ensure,
     before => Service['nagios-nrpe-server'],
   }
 
