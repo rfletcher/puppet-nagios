@@ -7,3 +7,4 @@ project_page 'https://github.com/rfletcher/puppet-nagios'
 
 dependency 'dalen/puppetdbquery', '>= 1.5.3'
 dependency 'leinaddm/htpasswd',   '>= 0.0.3'
+dependency 'maestrodev/wget',     '>= 1.6.0'
