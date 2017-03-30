@@ -22,7 +22,15 @@ class nagios::nrpe(
       command => 'dpkg -r nagios-nrpe-server',
       onlyif  => 'dpkg --list nagios-nrpe-server | grep \'^i\' && apt-cache madison nagios-nrpe-server | grep "$(dpkg-query --show nagios-nrpe-server | awk \'{ print $2 }\')"',
       before  => Package['nagios-nrpe-server'],
+    } ->
+
+    exec { 'manage /usr/lib/nagios/plugins':
+      command => 'mkdir -p /usr/lib/nagios/plugins',
+      creates => '/usr/lib/nagios/plugins',
+      before  => Package['nagios-nrpe-server'],
     }
+
+    Exec['manage /usr/lib/nagios/plugins'] -> Nagios::Nrpe::Plugin <| |>
   }
 
   package { 'nagios-nrpe-server':
