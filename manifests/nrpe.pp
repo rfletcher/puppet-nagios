@@ -1,12 +1,35 @@
 class nagios::nrpe(
-  $ensure        = 'present',
-  $allowed_hosts = undef,
+  $ensure         = 'present',
+  $allowed_hosts  = undef,
+  $package_source = undef,
 ) {
   ## install
 
+  if $package_source == undef {
+    $package_provider = 'apt'
+  } else {
+    $package_provider    = 'dpkg'
+    $real_package_source = '/tmp/nagios-nrpe-server.deb'
+
+    wget::fetch { 'nagios-nrpe-server':
+      source      => $package_source,
+      destination => $real_package_source,
+      before      => Package['nagios-nrpe-server'],
+    }
+
+    # remove any version previous installed with apt
+    exec { 'remove apt nagios-nrpe-server':
+      command => 'dpkg -r nagios-nrpe-server',
+      onlyif  => 'apt-cache madison nagios-nrpe-server | grep -q "$(dpkg-query --show nagios-nrpe-server | awk \'{ print $2 }\')"',
+      before  => Package['nagios-nrpe-server'],
+    }
+  }
+
   package { 'nagios-nrpe-server':
-    ensure => $ensure,
-    before => Service['nagios-nrpe-server'],
+    ensure   => $ensure,
+    provider => $package_provider,
+    source   => $real_package_source,
+    before   => Service['nagios-nrpe-server'],
   }
 
   ## configure
