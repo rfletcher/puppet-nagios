@@ -40,6 +40,14 @@ class nagios::nrpe(
     before   => Service['nagios-nrpe-server'],
   }
 
+  if $::lsbdistid == 'Ubuntu' and versioncmp( $::lsbdistrelease, '16.04' ) >= 0 {
+    package { 'nagios-plugins':
+      ensure  => $ensure,
+      require => Package['nagios-nrpe-server'],
+      notify  => Service['nagios-nrpe-server'],
+    }
+  }
+
   ## configure
 
   Augeas {
